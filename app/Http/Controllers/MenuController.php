@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MenuController extends Controller {
+
+    // afficher toutes les Menus 
+
+    public function index(Request $request) {
+        $queries = \App\Models\Menu::query();
+
+        // Filtrer par recherche si un terme est fourni
+        if ($request->has('search') && $request->search != '') {
+            $queries->where('nomplat', 'like', '%' . $request->search . '%');
+        }
+
+        $menus = $queries->paginate(5); // ajouter la pagination
+        return view('menus.index', compact('menus')); // elle envoie ces donnees vers la vue 'menus.index' en utilisant compact() pour rendre $menus dispo dans la vue
+    }
+
+    // afficher un menu specifique 
+
+    public function show($id) {
+        $menus = \App\Models\Menu::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('menus.show', compact('menus')); // si trouve, le menu est envoyee vers la vue 'menus.show'
+    }
+
+    // afficher le formulaire de creation 
+
+    public function create() {
+        return view('menus.create'); // rediriger vers cette vue
+    }
+
+    // enregistrer une nouvelle menu 
+
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'nomplat' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'pu' => 'required|string', // obligatoire, chaine de caractere
+        ]);
+
+        $validated['pu'] = intval($validated['pu']); // convertir pu string en int
+
+        \App\Models\Menu::create($validated); // envoye de ces donnees vers la bases de donnees
+
+        return redirect()->route('menus.index')->with('success', 'menu créé avec succès !'); // redirection vers la vue (liste des menus) avec une petite message de succes
+    }
+
+    // afficher le formulaire d edition 
+
+    public function edit($id) {
+        $menus = \App\Models\Menu::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('menus.edit', compact('menus')); // si trouve, le menu est envoye vers la vue 'menus.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
+    }
+
+    // mettre a jour une menu existante 
+
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'nomplat' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'pu' => 'required|string', // obligatoire, chaine de caractere
+        ]);
+
+        $validated['pu'] = intval($validated['pu']); // convertir pu string en int
+
+        $menus = \App\Models\Menu::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $menus->update($validated); // mise a jour d un menu apres avoir rempli les champs
+
+        return redirect()->route('menus.index')->with('success', 'menu mise à jour avec succès !'); // redirection vers la vue (liste des menus) avec une petite message de succes
+    }
+
+    // supprimer un menu 
+
+    public function destroy($id) {
+        $menus = \App\Models\Menu::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $menus->delete(); // si trouve, on le supprime
+
+        return redirect()->route('menus.index')->with('success', 'menu supprimé avec succès !'); // redirection vers la vue (liste des menus) avec une petite message de succes
+    }
+    
+}
+

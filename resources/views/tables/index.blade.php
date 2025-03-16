@@ -8,7 +8,7 @@
     <h1 class="mb-4">Liste des tables</h1>
     <a href="{{ route('tables.create') }}" class="btn btn-primary mb-3">Ajouter une nouvelle table</a> {{-- btn pour ajouter new table --}}
     @if ($tables->isEmpty())
-        <p>Aucune table disponible.</p> {{-- s il n y a pas de table --}}
+        <p>Aucune table disponible pour "{{ request('search') }}"</p> {{-- s il n y a pas de table --}}
     @else
         <ul class="list-group">
             @foreach ($tables as $table)
@@ -17,5 +17,10 @@
                 </li>
             @endforeach
         </ul>
+
+        <!-- Afficher les liens de pagination -->
+        {{ $tables->links() }}
+
     @endif
 @endsection
+

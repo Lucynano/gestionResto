@@ -23,14 +23,14 @@
 
         <div class="mb-3">
             <label for="designation" class="form-label">Desigantion</label>
-            <input type="text" id="designation" name="designation" class="form-control" value="{{ old('designation') }}" required> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
+            <input type="text" id="designation" name="designation" class="form-control" value="{{ old('designation') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
         </div>
 
         <div class="mb-3">
             <label for="occupation" class="form-label">Occupation (libre ou non)</label>
-            <select id="occupation" name="occupation" class="form-control">
-                <option value="libre" {{ old('occupation', $tables->occupation ?? '') == 0 ? 'selected' : '' }}>Libre</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
-                <option value="non" {{ old('occupation', $tables->occupation ?? '') == 1 ? 'selected' : '' }}>Non</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
+            <select id="occupation" name="occupation" class="form-control"> {{-- champ a choix multiple --}}
+                <option value="Libre" {{ old('occupation') == 0 ? 'selected' : '' }}>Libre</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+                <option value="Non libre" {{ old('occupation') == 1 ? 'selected' : '' }}>Non libre</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
             </select>
         </div>
 

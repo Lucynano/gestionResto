@@ -3,47 +3,20 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.main');
 });
 
-// ROUTE DE TABLE 
-/*  URL: '/tables', '/tables/{id}', '/tables/create', ...
+// ROUTE 
+/*  URL: 'tables', 'menus'
     Methode HTTP: get, post, put, delete, ...
     Methode du TableController: index, show, create, store, edit, update, destroy, ...
 */
 
 use App\Http\Controllers\TableController;
 
-/* 
-// routes pour un CRUD complet
-Route::resource('tables', TableController::class);
-*/
+Route::resource('tables', TableController::class); // routes pour un CRUD complet de tables
 
-// afficher toutes les tables
+use App\Http\Controllers\MenuController;
 
-Route::get('/tables', [TableController::class, 'index'])->name('tables.index');
-
-// afficher une table specifique
-
-Route::get('/tables/{id}', [TableController::class, 'show'])->name('tables.show');
-
-// pour afficher le formulaire de creation d une table 
-
-Route::get('/tables/create', [TableController::class, 'create'])->name('tables.create');
-
-// enregistrer une nouvelle table
-
-Route::post('/tables', [TableController::class, 'store'])->name('tables.store');
-
-// afficher le formulaire d edition d une table
-
-Route::get('/tables/{id}/edit', [TableController::class, 'edit'])->name('tables.edit');
-
-// mettre a jour une table existante 
-
-Route::put('/tables/{id}', [TableController::class, 'update'])->name('tables.update');
-
-// supprimer une table
-
-Route::delete('/tables/{id}', [TableController::class, 'destroy'])->name('tables.destroy');
+Route::resource('menus', MenuController::class); // routes pour un CRUD complet de menus
 
