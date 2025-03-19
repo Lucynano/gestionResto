@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use \App\Models\Reserver;
+use Illuminate\Http\Request;
+
+use App\Models\Table;
+
+class ReserverController extends Controller
+{
+    // afficher toutes les reservers 
+
+    public function index(Request $request) {
+        $queries = Reserver::query();
+
+        // Filtrer par recherche si un terme est fourni
+        if ($request->has('search') && $request->search != '') {
+            $queries->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
+        }
+
+        $reservers = Reserver::all(); 
+        return view('reservers.index', compact('reservers')); // elle envoie ces donnees vers la vue 'reservers.index' en utilisant compact() pour rendre $reservers dispo dans la vue
+    }
+
+    // afficher une reserver specifique 
+
+    public function show($id) {
+        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('reservers.show', compact('reservers')); // si trouve, la reserver est envoyee vers la vue 'reservers.show'
+    }
+
+    // afficher le formulaire de creation 
+
+    public function create() {
+        $tables = Table::all(); // Récupérer toutes les tables
+
+        return view('reservers.create', compact('tables')); // rediriger vers cette vue
+    }
+
+    // enregistrer une nouvelle reserver 
+
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'table_id' => 'required|exists:tables,id',  // verifie seulement l'existence
+            'nomcli' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'date_reserve' => 'required|date', // verifie que c'est une date valide
+            'heure' => 'required', // heure pour la datetime
+            'minutes' => 'required', // minutes pour la datetime
+        ]);
+
+        $validated['date_reserve'] = $validated['date_reserve']. ' ' .$validated['heure']. ':' .$validated['minutes']. ':00'; // concatenation pour la stucture datetime (YYYY-MM-DD hh:mm:ss)
+
+        Reserver::create($validated); // envoye de ces donnees vers la bases de donnees
+
+        return redirect()->route('reservers.index')->with('success', 'reserver créée avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+    }
+
+    // afficher le formulaire d edition 
+
+    public function edit($id) {
+        $tables = Table::all(); // Récupérer toutes les tables
+
+        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('reservers.edit', compact('reservers', 'tables')); // si trouve, la reserver est envoye vers la vue 'reservers.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
+    }
+
+    // mettre a jour une reserver existante 
+
+    public function update(Request $request, $id) {
+        $validated = $request->validate([
+            'table_id' => 'required|exists:tables,id',  // verifie seulement l'existence
+            'nomcli' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'date_reserve' => 'required|date', // verifie que c'est une date valide
+            'heure' => 'required', // heure pour la datetime
+            'minutes' => 'required', // minutes pour la datetime
+        ]);
+
+        $validated['date_reserve'] = $validated['date_reserve']. ' ' .$validated['heure']. ':' .$validated['minutes']. ':00'; // concatenation pour la stucture datetime (YYYY-MM-DD hh:mm:ss)
+
+        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $reservers->update($validated); // mise a jour d un reserver apres avoir rempli les champs
+
+        return redirect()->route('reservers.index')->with('success', 'reserver mise à jour avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+    }
+
+    // supprimer un reserver 
+
+    public function destroy($id) {
+        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $reservers->delete(); // si trouve, on le supprime
+
+        return redirect()->route('reservers.index')->with('success', 'reserver supprimé avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+    }
+}

@@ -9,7 +9,7 @@ class Table extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['designation', 'occupation']; // colonnes autoriser a remplir
+    protected $fillable = ['designation', 'occupation']; // colonnes autoriser a etre rempli
 
     public function commandes(): HasMany // foreign key de commandes
     {

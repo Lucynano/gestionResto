@@ -20,3 +20,12 @@ use App\Http\Controllers\MenuController;
 
 Route::resource('menus', MenuController::class); // routes pour un CRUD complet de menus
 
+use App\Http\Controllers\CommandeController;
+
+Route::resource('commandes', CommandeController::class); // routes pour un CRUD complet de commandes
+
+use App\Http\Controllers\ReserverController;
+
+Route::resource('reservers', ReserverController::class); // routes pour un CRUD complet de reservers
+
+

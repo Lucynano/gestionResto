@@ -1,6 +1,6 @@
-{{-- page formulaire d’ajout/modification d’une table --}}
+{{-- page formulaire de modification d’une table --}}
 
-@extends('layouts.main') {{--herite du layout principal --}}
+@extends('layouts.main') {{-- herite du layout principal --}}
 
 @section('title', 'Modifier la table') {{-- titre personnalise --}}
 
@@ -30,8 +30,8 @@
         <div class="mb-3">
             <label for="occupation" class="form-label">Occupation (libre ou non)</label>
             <select id="occupation" name="occupation" class="form-control"> {{-- champ a choix multiple --}}
-                <option value="Libre" {{ old('occupation', $tables->occupation ?? '') == 0 ? 'selected' : '' }}>Libre</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
-                <option value="Non libre" {{ old('occupation', $tables->occupation ?? '') == 1 ? 'selected' : '' }}>Non libre</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
+                <option value="Libre" {{ old('occupation', $tables->occupation ?? '') == 0 ? 'selected' : '' }}>Libre</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+                <option value="Non libre" {{ old('occupation', $tables->occupation ?? '') == 1 ? 'selected' : '' }}>Non libre</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
             </select>
         </div>
 

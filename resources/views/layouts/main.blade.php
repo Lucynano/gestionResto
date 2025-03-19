@@ -14,14 +14,18 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('tables.index') }}">Tables</a>  {{-- lien vers la liste des tables --}}
             <a class="navbar-brand" href="{{ route('menus.index') }}">Menus</a>  {{-- lien vers la liste des menus --}}
+            <a class="navbar-brand" href="{{ route('commandes.index') }}">Commandes</a>  {{-- lien vers la liste des commandes --}}
+            <a class="navbar-brand" href="{{ route('reservers.index') }}">Reservations</a>  {{-- lien vers la liste des reservers --}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <form class="d-flex ms-auto" method="GET" action="{{ route('menus.index') }}">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Rechercher un menu/client..." value="{{ request('search') }}"> {{-- champ pour rechercher un menu/client --}}
-                    <button class="btn btn-outline-success" type="submit">Rechercher</button>
-                </form>
+                @if (Route::is('menus.index') || Route::is('commandes.index') || Route::is('reservers.index')) {{-- verifie si l'utilisateur est actuellement sur la page menus.index ou commandes.index ou reservers.index --}}
+                    <form class="d-flex ms-auto" method="GET" action="{{ url()->current() }}"> {{-- assure que la recherche se fait sur la page actuelle (menus ou commandes ou reservers) --}}
+                        <input class="form-control me-2" type="search" name="search" placeholder="Rechercher..." value="{{ request('search') }}">
+                        <button class="btn btn-outline-success" type="submit">Rechercher</button>
+                    </form>
+                @endif
             </div>
         </div>
     </nav>
@@ -32,5 +36,7 @@
 
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @yield('scripts') {{-- pour permettre les scripts JavaScript --}}
 </body>
 

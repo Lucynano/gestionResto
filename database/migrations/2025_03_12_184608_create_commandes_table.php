@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id(); // Colonne pour l'identifiant unique
-            $table->foreignIdFor(model:\App\Models\Menu::class); // foreign key menu_id
-            $table->foreignIdFor(model:\App\Models\Table::class); // foreign key table_id
+            $table->foreignIdFor(model:\App\Models\Menu::class)->nullable()->constrained()->onDelete('set null'); // foreign key menu_id, si supp -> null
+            $table->foreignIdFor(model:\App\Models\Table::class)->nullable()->constrained()->onDelete('set null'); // foreign key table_id, si supp -> null
             $table->string('nomcli'); // Nom du client
             $table->string('typecom'); // sur table ou a emporter
-            $table->date('datecom'); // date de commande
+            $table->date('datecom'); // date de commande (YYYY-MM-DD)
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }

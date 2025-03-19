@@ -9,7 +9,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nomplat', 'pu']; // colonnes autoriser a remplir
+    protected $fillable = ['nomplat', 'pu']; // colonnes autoriser a etre rempli
 
     public function commandes(): HasMany // foreign key de commandes
     {

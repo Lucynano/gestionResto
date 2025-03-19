@@ -1,6 +1,6 @@
 {{-- fichier Blade pour le formulaire --}}
 
-@extends('layouts.main') {{--herite du layout principal --}}
+@extends('layouts.main') {{-- herite du layout principal --}}
 
 @section('title', 'Ajouter une table') {{-- titre personnalise --}}
 
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('tables.store') }}" method="POST">
+    <form action="{{ route('tables.store') }}" method="POST"> {{-- action vers la route store --}}
         @csrf <!-- protection contre les attaques CSRF -->
 
         <div class="mb-3">
@@ -30,7 +30,7 @@
             <label for="occupation" class="form-label">Occupation (libre ou non)</label>
             <select id="occupation" name="occupation" class="form-control"> {{-- champ a choix multiple --}}
                 <option value="Libre" {{ old('occupation') == 0 ? 'selected' : '' }}>Libre</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
-                <option value="Non libre" {{ old('occupation') == 1 ? 'selected' : '' }}>Non libre</option> {{-- conserver les donnees precedemment saisies en cas deerreur de validation --}}
+                <option value="Non libre" {{ old('occupation') == 1 ? 'selected' : '' }}>Non libre</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
             </select>
         </div>
 

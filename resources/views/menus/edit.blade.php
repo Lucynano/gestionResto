@@ -1,6 +1,6 @@
-{{-- page formulaire d’ajout/modification d’une menu --}}
+{{-- page formulaire de modification d’une menu --}}
 
-@extends('layouts.main') {{--herite du layout principal --}}
+@extends('layouts.main') {{-- herite du layout principal --}}
 
 @section('title', 'Modifier le menu') {{-- titre personnalise --}}
 

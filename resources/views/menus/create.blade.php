@@ -1,6 +1,6 @@
 {{-- fichier Blade pour le formulaire --}}
 
-@extends('layouts.main') {{--herite du layout principal --}}
+@extends('layouts.main') {{-- herite du layout principal --}}
 
 @section('title', 'Ajouter un menu') {{-- titre personnalise --}}
 
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('menus.store') }}" method="POST">
+    <form action="{{ route('menus.store') }}" method="POST"> {{-- action vers la route store --}}
         @csrf <!-- protection contre les attaques CSRF -->
 
         <div class="mb-3">
@@ -28,7 +28,7 @@
 
         <div class="mb-3">
             <label for="pu" class="form-label">Prix unitaire</label>
-            <input type="text" id="pu" name="pu" oninput="this.value=this.value.replace(/\D/g, '')" class="form-control" value="{{ old('pu') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+            <input type="text" id="pu" name="pu" oninput="this.value=this.value.replace(/\D/g, '')" class="form-control" value="{{ old('pu') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation, oninput="..." methode JS pour que la saisie doit etre seulement des chiffres  --}}
         </div>
 
         <button type="submit" class="btn btn-success">Enregistrer</button> {{-- btn pour enregistrer --}}

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reservers', function (Blueprint $table) {
             $table->id(); // Colonne pour l'identifiant unique
-            $table->foreignIdFor(model:\App\Models\Table::class); // foreign key table_id
+            $table->foreignIdFor(model:\App\Models\Table::class)->nullable()->constrained()->onDelete('set null'); // foreign key table_id, si supp -> null
             $table->string('nomcli'); // Nom du client
-            $table->dateTime('date-de-reserv'); // dateTime de format (YYYY-MM-DD hh:mm:ss)
-            $table->dateTime('date reserve'); 
+            $table->dateTime('date_de_reserv'); //  date de reservation, equivaut a updated_at, dateTime de format (YYYY-MM-DD hh:mm:ss)
+            $table->dateTime('date_reserve'); // dateTime de format (YYYY-MM-DD hh:mm:ss)
             $table->timestamps(); // Colonnes created_at et updated_at
         });
     }
