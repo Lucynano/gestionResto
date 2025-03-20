@@ -20,15 +20,15 @@ class CommandeController extends Controller
             $queries->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $commandes = Commande::all(); 
+        $commandes = $queries->get(); 
         return view('commandes.index', compact('commandes')); // elle envoie ces donnees vers la vue 'commandes.index' en utilisant compact() pour rendre $commandes dispo dans la vue
     }
 
     // afficher une commande specifique 
 
     public function show($id) {
-        $commandes = \App\Models\Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('commandes.show', compact('commandes')); // si trouve, la commande est envoyee vers la vue 'commandes.show'
+        $commande = \App\Models\Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('commandes.show', compact('commande')); // si trouve, la commande est envoyee vers la vue 'commandes.show'
     }
 
     // afficher le formulaire de creation 
@@ -65,8 +65,8 @@ class CommandeController extends Controller
         $menus = Menu::all();  // Récupérer tous les menus
         $tables = Table::all(); // Récupérer toutes les tables
 
-        $commandes = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('commandes.edit', compact('commandes','menus', 'tables')); // si trouve, la commande est envoye vers la vue 'commandes.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
+        $commande = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('commandes.edit', compact('commande','menus', 'tables')); // si trouve, la commande est envoye vers la vue 'commandes.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
     }
 
     // mettre a jour une commande existante 
@@ -83,8 +83,8 @@ class CommandeController extends Controller
         if($validated['typecom'] == 'A emporter') // si A emporter (1) => id = null
             $validated['table_id'] = null;
 
-        $commandes = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $commandes->update($validated); // mise a jour d un commande apres avoir rempli les champs
+        $commande = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $commande->update($validated); // mise a jour d un commande apres avoir rempli les champs
 
         return redirect()->route('commandes.index')->with('success', 'commande mise à jour avec succès !'); // redirection vers la vue (liste des commandes) avec une petite message de succes
     }
@@ -92,8 +92,8 @@ class CommandeController extends Controller
     // supprimer un commande 
 
     public function destroy($id) {
-        $commandes = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $commandes->delete(); // si trouve, on le supprime
+        $commande = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $commande->delete(); // si trouve, on le supprime
 
         return redirect()->route('commandes.index')->with('success', 'commande supprimé avec succès !'); // redirection vers la vue (liste des commandes) avec une petite message de succes
     }

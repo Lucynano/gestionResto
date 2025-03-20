@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('reservers.update', $reservers->id) }}" method="POST"> {{-- formulaire pour modif une reserver --}}
+    <form action="{{ route('reservers.update', $reserver->id) }}" method="POST"> {{-- formulaire pour modif une reserver --}}
         @csrf {{-- protection contre les attaques CSRF --}}
 
         @method('PUT') <!-- Méthode HTTP PUT -->
@@ -34,12 +34,12 @@
 
         <div class="mb-3">
             <label for="nomcli" class="form-label">Nom client</label>
-            <input type="text" id="nomcli" name="nomcli" class="form-control" value="{{ old('nomcli', $reservers->nomcli ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+            <input type="text" id="nomcli" name="nomcli" class="form-control" value="{{ old('nomcli', $reserver->nomcli ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
         </div>
 
         <div class="mb-3">
             <label for="date_reserve" class="form-label">Date reserve</label>
-            <input type="date" id="date_reserve" name="date_reserve" class="form-control" value="{{ old('date_reserve', $reservers->date_reserve ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation, type date (YYYY-MM-DD) --}}
+            <input type="date" id="date_reserve" name="date_reserve" class="form-control" value="{{ old('date_reserve', $reserver->date_reserve ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation, type date (YYYY-MM-DD) --}}
         </div>
 
         <div class="mb-3">

@@ -17,8 +17,8 @@ class TableController extends Controller {
     // afficher une Table specifique 
 
     public function show($id) {
-        $tables = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('tables.show', compact('tables')); // si trouve, la table est envoyee vers la vue 'tables.show'
+        $table = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('tables.show', compact('table')); // si trouve, la table est envoyee vers la vue 'tables.show'
     }
 
     // afficher le formulaire de creation 
@@ -45,8 +45,8 @@ class TableController extends Controller {
     // afficher le formulaire d edition 
 
     public function edit($id) {
-        $tables = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('tables.edit', compact('tables')); // si trouve, la table est envoyee vers la vue 'tables.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
+        $table = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('tables.edit', compact('table')); // si trouve, la table est envoyee vers la vue 'tables.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
     }
 
     // mettre a jour une Table existante 
@@ -59,8 +59,8 @@ class TableController extends Controller {
 
         $validated['occupation'] = $validated['occupation'] === 'Libre' ? 0 : 1; // convertir "libre" en 0 et "non" en 1
 
-        $tables = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $tables->update($validated); // mise a jour d une table apres avoir rempli les champs
+        $table = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $table->update($validated); // mise a jour d une table apres avoir rempli les champs
 
         return redirect()->route('tables.index')->with('success', 'Table mise à jour avec succès !'); // redirection vers la vue (liste des tables) avec une petite message de succes
     }
@@ -68,8 +68,8 @@ class TableController extends Controller {
     // supprimer une Table 
 
     public function destroy($id) {
-        $tables = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $tables->delete(); // si trouve, on le supprime
+        $table = Table::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $table->delete(); // si trouve, on le supprime
 
         return redirect()->route('tables.index')->with('success', 'Table supprimée avec succès !'); // redirection vers la vue (liste des tables) avec une petite message de succes
     }

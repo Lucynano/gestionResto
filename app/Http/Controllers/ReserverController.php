@@ -19,15 +19,15 @@ class ReserverController extends Controller
             $queries->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $reservers = Reserver::all(); 
+        $reservers = $queries->get(); 
         return view('reservers.index', compact('reservers')); // elle envoie ces donnees vers la vue 'reservers.index' en utilisant compact() pour rendre $reservers dispo dans la vue
     }
 
     // afficher une reserver specifique 
 
     public function show($id) {
-        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('reservers.show', compact('reservers')); // si trouve, la reserver est envoyee vers la vue 'reservers.show'
+        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('reservers.show', compact('reserver')); // si trouve, la reserver est envoyee vers la vue 'reservers.show'
     }
 
     // afficher le formulaire de creation 
@@ -61,8 +61,8 @@ class ReserverController extends Controller
     public function edit($id) {
         $tables = Table::all(); // Récupérer toutes les tables
 
-        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        return view('reservers.edit', compact('reservers', 'tables')); // si trouve, la reserver est envoye vers la vue 'reservers.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
+        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        return view('reservers.edit', compact('reserver', 'tables')); // si trouve, la reserver est envoye vers la vue 'reservers.edit' (formulaire) et les champs du formulaire est deja rempli avec les anciennes donnees
     }
 
     // mettre a jour une reserver existante 
@@ -78,8 +78,8 @@ class ReserverController extends Controller
 
         $validated['date_reserve'] = $validated['date_reserve']. ' ' .$validated['heure']. ':' .$validated['minutes']. ':00'; // concatenation pour la stucture datetime (YYYY-MM-DD hh:mm:ss)
 
-        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $reservers->update($validated); // mise a jour d un reserver apres avoir rempli les champs
+        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $reserver->update($validated); // mise a jour d un reserver apres avoir rempli les champs
 
         return redirect()->route('reservers.index')->with('success', 'reserver mise à jour avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
     }
@@ -87,8 +87,8 @@ class ReserverController extends Controller
     // supprimer un reserver 
 
     public function destroy($id) {
-        $reservers = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $reservers->delete(); // si trouve, on le supprime
+        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+        $reserver->delete(); // si trouve, on le supprime
 
         return redirect()->route('reservers.index')->with('success', 'reserver supprimé avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
     }

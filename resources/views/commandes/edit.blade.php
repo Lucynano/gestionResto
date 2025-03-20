@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('commandes.update', $commandes->id) }}" method="POST"> {{-- formulaire pour modif une commande --}}
+    <form action="{{ route('commandes.update', $commande->id) }}" method="POST"> {{-- formulaire pour modif une commande --}}
         @csrf {{-- protection contre les attaques CSRF --}}
 
         @method('PUT') <!-- Méthode HTTP PUT -->
@@ -51,20 +51,20 @@
 
         <div class="mb-3">
             <label for="nomcli" class="form-label">Nom client</label>
-            <input type="text" id="nomcli" name="nomcli" class="form-control" value="{{ old('nomcli', $commandes->nomcli ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+            <input type="text" id="nomcli" name="nomcli" class="form-control" value="{{ old('nomcli', $commande->nomcli ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
         </div>
 
         <div class="mb-3">
             <label for="typecom" class="form-label">Type commande</label>
             <select id="typecom" name="typecom" class="form-control"> {{-- champ a choix multiple --}}
-                <option value="Sur table" {{ old('typecom', $commandes->typecom ?? '') == 'Sur table' ? 'selected' : '' }}>Sur table</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
-                <option value="A emporter" {{ old('typecom', $commandes->typecom ?? '') == 'A emporter' ? 'selected' : '' }}>A emporter</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+                <option value="Sur table" {{ old('typecom', $commande->typecom ?? '') == 'Sur table' ? 'selected' : '' }}>Sur table</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+                <option value="A emporter" {{ old('typecom', $commande->typecom ?? '') == 'A emporter' ? 'selected' : '' }}>A emporter</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
             </select>
         </div>
 
         <div class="mb-3">
             <label for="datecom" class="form-label">Date commande</label>
-            <input type="date" id="datecom" name="datecom" class="form-control" value="{{ old('datecom', $commandes->datecom ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation, type date (YYYY-MM-DD) --}}
+            <input type="date" id="datecom" name="datecom" class="form-control" value="{{ old('datecom', $commande->datecom ?? '') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation, type date (YYYY-MM-DD) --}}
         </div>
 
         <button type="submit" class="btn btn-success">Enregistrer</button> {{-- btn pour enregistrer --}}
