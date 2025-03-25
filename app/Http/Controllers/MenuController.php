@@ -10,14 +10,14 @@ class MenuController extends Controller {
     // afficher tous les Menus 
 
     public function index(Request $request) {
-        $queries = Menu::query();
+        $query = Menu::query();
 
         // Filtrer par recherche si un terme est fourni
         if ($request->has('search') && $request->search != '') {
-            $queries->where('nomplat', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
+            $query->where('nomplat', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $menus = $queries->get(); 
+        $menus = $query->get(); 
         return view('menus.index', compact('menus')); // elle envoie ces donnees vers la vue 'menus.index' en utilisant compact() pour rendre $menus dispo dans la vue
     }
 

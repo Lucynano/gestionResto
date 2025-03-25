@@ -28,4 +28,11 @@ use App\Http\Controllers\ReserverController;
 
 Route::resource('reservers', ReserverController::class); // routes pour un CRUD complet de reservers
 
+use App\Http\Controllers\RequeteController;
+
+Route::get('/requetes/listeCli', [RequeteController::class, 'listeCli'])->name('requetes.listeCli'); // route pour listeCli
+
+Route::get('/requetes', [RequeteController::class, 'index'])->name('requetes.index');
+
+
 

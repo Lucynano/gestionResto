@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+
 return [
 
     /*
@@ -122,5 +124,20 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'providers' => [
+
+        Illuminate\Filesystem\FilesystemServiceProvider::class,   
+	    // Service Provider DomPDF
+	    Barryvdh\DomPDF\ServiceProvider::class
+
+    ],
+
+    'aliases' => Facade::defaultAliases()->merge([
+
+    	// Façade Laravel-dompdf
+    	"PDF" => Barryvdh\DomPDF\Facade::class
+    
+    ])->toArray(),
 
 ];

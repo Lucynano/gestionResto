@@ -9,6 +9,7 @@
     <p><strong>Menu ID :</strong> {{ $commande->menu_id }}</p>
     <p><strong>Table ID :</strong> {{ $commande->table_id }}</p>
     <p><strong>Nom client :</strong> {{ $commande->nomcli }}</p>
+    <p><strong>Unite :</strong> {{ $commande->unite }}</p>
     <p><strong>Type commande :</strong> {{ $commande->typecom }}</p>
     <p><strong>Date commande :</strong> {{ $commande->datecom }}</p>
 

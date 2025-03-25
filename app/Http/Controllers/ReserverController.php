@@ -12,14 +12,14 @@ class ReserverController extends Controller
     // afficher toutes les reservers 
 
     public function index(Request $request) {
-        $queries = Reserver::query();
+        $query = Reserver::query();
 
         // Filtrer par recherche si un terme est fourni
         if ($request->has('search') && $request->search != '') {
-            $queries->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
+            $query->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $reservers = $queries->get(); 
+        $reservers = $query->get(); 
         return view('reservers.index', compact('reservers')); // elle envoie ces donnees vers la vue 'reservers.index' en utilisant compact() pour rendre $reservers dispo dans la vue
     }
 

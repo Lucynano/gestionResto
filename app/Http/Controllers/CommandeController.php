@@ -13,14 +13,14 @@ class CommandeController extends Controller
     // afficher toutes les commandes 
 
     public function index(Request $request) {
-        $queries = Commande::query();
+        $query = Commande::query();
 
         // Filtrer par recherche si un terme est fourni
         if ($request->has('search') && $request->search != '') {
-            $queries->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
+            $query->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $commandes = $queries->get(); 
+        $commandes = $query->get(); 
         return view('commandes.index', compact('commandes')); // elle envoie ces donnees vers la vue 'commandes.index' en utilisant compact() pour rendre $commandes dispo dans la vue
     }
 
@@ -47,6 +47,7 @@ class CommandeController extends Controller
             'menu_id' => 'required|exists:menus,id', // verifie seulement l'existence
             'table_id' => 'nullable|exists:tables,id',  // verifie seulement l'existence
             'nomcli' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'unite' => 'required|integer', // obligatoire, entier
             'typecom' => 'required|string', // obligatoire, chaine de caractere
             'datecom' => 'nullable|date', // verifie que c'est une date valide
         ]);
@@ -76,6 +77,7 @@ class CommandeController extends Controller
             'menu_id' => 'required|exists:menus,id', // verifie seulement l'existence
             'table_id' => 'nullable|exists:tables,id',  // verifie seulement l'existence
             'nomcli' => 'required|string|max:255', // obligatoire, chaine de caractere, lenght<=255
+            'unite' => 'required|integer', // obligatoire, entier
             'typecom' => 'required|string', // obligatoire, chaine de caractere
             'datecom' => 'nullable|date', // verifie que c'est une date valide
         ]);

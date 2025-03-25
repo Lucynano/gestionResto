@@ -8,6 +8,7 @@
     <title>@yield('title', 'Gestion de restaurent')</title> {{-- titre personnalise pour chaque page --}}
     <!-- Lien Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/popupForm.css') }}"> {{-- lien css pour popupForm --}}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,6 +17,7 @@
             <a class="navbar-brand" href="{{ route('menus.index') }}">Menus</a>  {{-- lien vers la liste des menus --}}
             <a class="navbar-brand" href="{{ route('commandes.index') }}">Commandes</a>  {{-- lien vers la liste des commandes --}}
             <a class="navbar-brand" href="{{ route('reservers.index') }}">Reservations</a>  {{-- lien vers la liste des reservers --}}
+            <a class="navbar-brand" href="{{ route('requetes.index') }}">Requetes specifiques</a>  {{-- lien vers la liste des reservers --}}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>

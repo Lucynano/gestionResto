@@ -45,6 +45,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="unite" class="form-label">Unite</label>
+            <input type="number" id="unite" name="unite" class="form-control" value="{{ old('unite') }}" required> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}
+        </div>
+
+        <div class="mb-3">
             <label for="typecom" class="form-label">Type commande</label>
             <select id="typecom" name="typecom" class="form-control"> {{-- champ a choix multiple --}}
                 <option value="Sur table" {{ old('typecom') == "Sur table" ? 'selected' : '' }}>Sur table</option> {{-- conserver les donnees precedemment saisies en cas d erreur de validation --}}

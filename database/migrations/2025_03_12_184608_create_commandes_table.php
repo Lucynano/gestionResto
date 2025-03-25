@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(model:\App\Models\Menu::class)->nullable()->constrained()->onDelete('set null'); // foreign key menu_id, si supp -> null
             $table->foreignIdFor(model:\App\Models\Table::class)->nullable()->constrained()->onDelete('set null'); // foreign key table_id, si supp -> null
             $table->string('nomcli'); // Nom du client
+            $table->integer('unite'); // qte d un menu
             $table->string('typecom'); // sur table ou a emporter
             $table->date('datecom'); // date de commande (YYYY-MM-DD)
             $table->timestamps(); // Colonnes created_at et updated_at

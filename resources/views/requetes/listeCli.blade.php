@@ -1,15 +1,22 @@
-{{-- page liste des commandes --}}
+{{-- page requetes specifiques --}}
 
 @extends('layouts.main') {{-- herite du layout principal --}}
 
-@section('title', 'Liste des commandes') {{-- titre personnalise --}}
+@section('title', 'Liste des clients') {{-- titre personnalise --}}
 
 @section('content') {{-- contenu specifique --}}
-    <h1 class="mb-4">Liste des commandes</h1>
-    <a href="{{ route('commandes.create') }}" class="btn btn-primary mb-3">Ajouter une nouvelle commande</a> {{-- btn pour ajouter new commande --}}
-    @if ($commandes->isEmpty())
-        <p>Aucune commande disponible</p> {{-- s il n y a pas de commande --}}
-    @else
+     <h1 class="mb-4">Liste des clients passes pour une date donnee ou entre deux dates</h1>
+     
+     <!-- Affichage des erreurs -->
+     @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+     @if ($commandes->isEmpty())
+        <p>Aucun client correspondant</p> {{-- s il n y a pas de client qui correspond a ces dates --}}
+     @else
         <table class="table table-striped"> {{-- Tableau Bootstrap --}}
             <thead class="table-dark">
                 <tr>
@@ -40,5 +47,9 @@
                 @endforeach
             </tbody>
         </table>
-    @endif
-@endsection 
+     @endif
+    <a href="{{ route('requetes.index') }}" class="btn btn-secondary">Retour</a> {{-- lien pour retourner a index --}}
+@endsection
+
+
+
