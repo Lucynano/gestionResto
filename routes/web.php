@@ -30,9 +30,25 @@ Route::resource('reservers', ReserverController::class); // routes pour un CRUD 
 
 use App\Http\Controllers\RequeteController;
 
+Route::get('/requetes/index', [RequeteController::class, 'index'])->name('requetes.index');
+
+Route::get('/requetes/formListeCli', [RequeteController::class, 'formListeCli'])->name('requetes.formListeCli');
+
 Route::get('/requetes/listeCli', [RequeteController::class, 'listeCli'])->name('requetes.listeCli'); // route pour listeCli
 
-Route::get('/requetes', [RequeteController::class, 'index'])->name('requetes.index');
+Route::get('/requetes/formAddition', [RequeteController::class, 'formAddition'])->name('requetes.formAddition');
+
+Route::get('/requetes/addition', [RequeteController::class, 'addition'])->name('requetes.addition');
+
+Route::get('/requetes/recetteTotal', [RequeteController::class, 'recetteTotal'])->name('requetes.recetteTotal');
+
+Route::get('/requetes/listePlat', [RequeteController::class, 'listePlat'])->name('requetes.listePlat');
+
+
+
+
+
+
 
 
 

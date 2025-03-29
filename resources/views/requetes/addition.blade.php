@@ -10,6 +10,9 @@
     @if ($additions->isEmpty())
         <p>Aucune addition disponible</p> {{-- s il n y a pas de addition --}}
     @else
+        <p><strong>Nom du client:</strong> {{ $validated['nomcli'] }}</p>
+        <p><strong>Table:</strong> {{ $validated['table_id'] }}</p>
+
         <table class="table table-striped"> {{-- Tableau Bootstrap --}}
             <thead class="table-dark">
                 <tr>
@@ -30,5 +33,9 @@
                 @endforeach
             </tbody>
         </table>
+
+        <h3>TOTAL (Ar): {{ $totalGeneral }}</h3>
+
     @endif
+    <a href="{{ route('requetes.index') }}" class="btn btn-secondary">Retour</a> {{-- lien pour retourner a index --}}
 @endsection 

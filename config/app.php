@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Facade;
+// use Illuminate\Support\Facades\Facade;
 
 return [
 
@@ -125,19 +125,19 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'providers' => [
+    // 'providers' => [
 
-        Illuminate\Filesystem\FilesystemServiceProvider::class,   
-	    // Service Provider DomPDF
-	    Barryvdh\DomPDF\ServiceProvider::class
+    //     Illuminate\Filesystem\FilesystemServiceProvider::class,   
+	//     // Service Provider DomPDF
+	//     Barryvdh\DomPDF\ServiceProvider::class
 
-    ],
+    // ],
 
-    'aliases' => Facade::defaultAliases()->merge([
+    // 'aliases' => Facade::defaultAliases()->merge([
 
-    	// Façade Laravel-dompdf
-    	"PDF" => Barryvdh\DomPDF\Facade::class
+    // 	// Façade Laravel-dompdf
+    // 	"PDF" => Barryvdh\DomPDF\Facade::class
     
-    ])->toArray(),
+    // ])->toArray(),
 
 ];

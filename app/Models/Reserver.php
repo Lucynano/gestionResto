@@ -11,7 +11,7 @@ class Reserver extends Model
 
     protected $fillable = ['table_id', 'nomcli', 'date_de_reserv', 'date_reserve']; // colonnes autoriser a etre rempli
 
-    public function tables(): BelongsTo // foreign key table_id
+    public function table(): BelongsTo // foreign key table_id
     {
         return $this->belongsTo(related: Table::class);
     }

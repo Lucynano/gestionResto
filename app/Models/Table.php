@@ -20,4 +20,5 @@ class Table extends Model
     {
         return $this->hasMany(related: Reserver::class);
     }
+    
 }
