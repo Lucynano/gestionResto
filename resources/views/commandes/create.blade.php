@@ -34,7 +34,9 @@
             <label for="table_id" class="form-label">Table (optionnel)</label>
             <select id="table_id" name="table_id" class="form-control" required> {{-- choix entre table deja existante --}}
                 @foreach($tables as $table)
-                    <option value="{{ $table->id }}">{{ $table->designation }}</option> {{-- on recupere l id mais on laisse l utilisateur choisir une designation correspondante --}}
+                    @if ($table->occupation==0)
+                        <option value="{{ $table->id }}">{{ $table->designation }}</option> {{-- on recupere l id mais on laisse l utilisateur choisir une designation correspondante --}}
+                    @endif
                 @endforeach
             </select>
         </div>

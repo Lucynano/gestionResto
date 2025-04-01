@@ -51,9 +51,20 @@ class ReserverController extends Controller
 
         $validated['date_reserve'] = $validated['date_reserve']. ' ' .$validated['heure']. ':' .$validated['minutes']. ':00'; // concatenation pour la stucture datetime (YYYY-MM-DD hh:mm:ss)
 
-        Reserver::create($validated); // envoye de ces donnees vers la bases de donnees
+        // Vérifier si la table est déjà réservée à cette date et heure
+        $existingReservation = Reserver::where('table_id', $validated['table_id'])
+        ->where('date_reserve', $validated['date_reserve'])
+        ->exists();
 
-        return redirect()->route('reservers.index')->with('success', 'reserver créée avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+        if (!$existingReservation) {
+            Reserver::create($validated); // envoye de ces donnees vers la bases de donnees
+
+            return redirect()->route('reservers.index')->with('success', 'Réservation créée avec succès !');
+        } else {
+            \Log::alert("Table déjà réservée à cette date");
+
+            return back()->withErrors(['table_id' => 'Cette table est déjà réservée à cette date.']);
+        }
     }
 
     // afficher le formulaire d edition 
@@ -78,10 +89,24 @@ class ReserverController extends Controller
 
         $validated['date_reserve'] = $validated['date_reserve']. ' ' .$validated['heure']. ':' .$validated['minutes']. ':00'; // concatenation pour la stucture datetime (YYYY-MM-DD hh:mm:ss)
 
-        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $reserver->update($validated); // mise a jour d un reserver apres avoir rempli les champs
+        // Vérifier si la table est déjà réservée à cette date et heure
+        $existingReservation = Reserver::where('table_id', $validated['table_id'])
+        ->where('date_reserve', $validated['date_reserve'])
+        ->where('id', '!=', $id) // Exclure la réservation actuelle
+        ->exists();
 
-        return redirect()->route('reservers.index')->with('success', 'reserver mise à jour avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+        $reserver = Reserver::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
+
+        if (!$existingReservation) {
+            $reserver->update($validated); // mise a jour d un reserver apres avoir rempli les champs
+
+            return redirect()->route('reservers.index')->with('success', 'reserver mise à jour avec succès !'); // redirection vers la vue (liste des reservers) avec une petite message de succes
+        } else {
+            \Log::alert("Table déjà réservée à cette date");
+            return back()->withErrors(['table_id' => 'Cette table est déjà réservée à cette date.']);
+        }
+
+        
     }
 
     // supprimer un reserver 

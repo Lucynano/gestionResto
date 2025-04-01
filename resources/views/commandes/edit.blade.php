@@ -41,7 +41,9 @@
             <select id="table_id" name="table_id" class="form-control" required> {{-- choix entre designation deja existante --}}
                 @if(isset($tables) && count($tables) > 0)
                     @foreach($tables as $table)
-                        <option value="{{ $table->id }}">{{ $table->designation }}</option>
+                        @if ($table->occupation==0)
+                            <option value="{{ $table->id }}">{{ $table->designation }}</option>
+                        @endif
                     @endforeach
                 @else
                     <option disabled>Aucune table disponible</option>

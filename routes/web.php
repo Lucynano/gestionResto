@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\View;
 
 Route::get('/', function () {
     return view('layouts.main');
@@ -40,11 +42,30 @@ Route::get('/requetes/formAddition', [RequeteController::class, 'formAddition'])
 
 Route::get('/requetes/addition', [RequeteController::class, 'addition'])->name('requetes.addition');
 
+Route::get('/payer/{table_id?}', [RequeteController::class, 'payer'])->name('requetes.payer');
+
 Route::get('/requetes/recetteTotal', [RequeteController::class, 'recetteTotal'])->name('requetes.recetteTotal');
+
+Route::get('/requetes/histogramme', [RequeteController::class, 'histogramme'])->name('requetes.histogramme');
 
 Route::get('/requetes/listePlat', [RequeteController::class, 'listePlat'])->name('requetes.listePlat');
 
+// Route::get('/telecharger-pdf', [RequeteController::class, 'telechargerPDF'])->name('telecharger.pdf');
 
+Route::get('/telecharger-pdf', function () {
+    $additions = session('additions', []);
+    $totalGeneral = session('totalGeneral', 0);
+    $validated = session('validated', []);
+
+    // Générer le contenu HTML avec les données
+    $html = View::make('requetes.addition-pdf', compact('additions', 'totalGeneral', 'validated'))->render();
+
+    // Créer le PDF
+    $pdf = SnappyPdf::loadHTML($html);
+
+    // Télécharger le PDF
+    return $pdf->download('addition.pdf');
+})->name('telecharger.pdf');
 
 
 

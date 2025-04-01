@@ -57,6 +57,8 @@ class CommandeController extends Controller
 
         Commande::create($validated); // envoye de ces donnees vers la bases de donnees
 
+        Table::where('id', $validated['table_id'])->update(['occupation' => true]);
+
         return redirect()->route('commandes.index')->with('success', 'commande créée avec succès !'); // redirection vers la vue (liste des commandes) avec une petite message de succes
     }
 
@@ -82,11 +84,26 @@ class CommandeController extends Controller
             'datecom' => 'nullable|date', // verifie que c'est une date valide
         ]);
 
-        if($validated['typecom'] == 'A emporter') // si A emporter (1) => id = null
+        $commande = Commande::findOrFail($id); // Récupérer la commande
+        $ancienne_table_id = $commande->table_id; // Stocker l'ancienne table
+    
+        // Si le type de commande est "A emporter", la table_id doit être null
+        if ($validated['typecom'] == 'A emporter') {
             $validated['table_id'] = null;
-
-        $commande = Commande::findOrFail($id); // chercher le id correspondant et si non trouve, error 404
-        $commande->update($validated); // mise a jour d un commande apres avoir rempli les champs
+        }
+    
+        // Mettre l'ancienne table comme libre (si elle existait)
+        if ($ancienne_table_id) {
+            Table::where('id', $ancienne_table_id)->update(['occupation' => false]);
+        }
+    
+        // Mettre à jour la commande
+        $commande->update($validated);
+    
+        // Marquer la nouvelle table comme occupée (si elle n'est pas null)
+        if (!is_null($validated['table_id'])) {
+            Table::where('id', $validated['table_id'])->update(['occupation' => true]);
+        }
 
         return redirect()->route('commandes.index')->with('success', 'commande mise à jour avec succès !'); // redirection vers la vue (liste des commandes) avec une petite message de succes
     }

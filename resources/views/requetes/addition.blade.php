@@ -37,5 +37,7 @@
         <h3>TOTAL (Ar): {{ $totalGeneral }}</h3>
 
     @endif
+    <a href="{{ route('requetes.payer', ['table_id' => $validated['table_id'] ?? null]) }}" class="btn btn-secondary">Payer</a>
+    <a href="{{ route('telecharger.pdf') }}" class="btn btn-secondary">Télécharger en PDF</a> <!-- Bouton pour télécharger le PDF -->
     <a href="{{ route('requetes.index') }}" class="btn btn-secondary">Retour</a> {{-- lien pour retourner a index --}}
 @endsection 

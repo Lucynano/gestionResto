@@ -21,10 +21,9 @@
     <div class="mb-3">
         <a href="{{ route('requetes.recetteTotal') }}" class="btn btn-primary mb-3">Recette total accumule par le restaurant</a>
     </div>
-    {{--
     <div class="mb-3">
         <a href="{{ route('requetes.histogramme') }}" class="btn btn-primary mb-3">Histogramme des recettes pendant les 6 derniers mois</a> 
-    </div> --}}
+    </div>
     <div class="mb-3">
         <a href="{{ route('requetes.listePlat') }}" class="btn btn-primary mb-3">Liste des 10 plats les plus vendu</a> {{-- btn pour   --}}
     </div>

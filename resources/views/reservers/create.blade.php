@@ -41,9 +41,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="date_reserve" class="form-label">Heure et minutes (10:00 - 22:30)</label>
+            <label for="date_reserve" class="form-label">Heure et minutes (07:00 - 22:30)</label>
             <div>
-                <input type="number" id="heure" name="heure" min="10" max="22" step="1" value="{{ old('heure', $heure ?? '') }}" required> {{-- heure entre 10 a 22 (le resto est ouvert) --}}
+                <input type="number" id="heure" name="heure" min="7" max="22" step="1" value="{{ old('heure', $heure ?? '') }}" required> {{-- heure entre 07 a 22 (le resto est ouvert) --}}
                 <label for="date_reserve"> : </label>
                 <input type="number" id="minutes" name="minutes" min="00" max="30" step="30" value="{{ old('minutes', $minutes ?? '') }}" required>  {{-- minutes soit 00 soit 30 --}}
             </div>
