@@ -37,6 +37,27 @@
                 @endif
             </div>
         </div>
+        <ul class="navbar-nav ms-auto">
+            @auth
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Se déconnecter</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
+                </li>
+            @endauth
+        </ul>
     </nav>
 
     <div class="container mt-4">

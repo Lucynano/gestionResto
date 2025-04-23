@@ -20,7 +20,7 @@
         var data = google.visualization.arrayToDataTable([
             ['Mois', 'Total des recettes'],
             @foreach ($datas as $data)
-                [ "{{ $data->mois }}", {{ $data->total }} ], 
+                [ "{{ $data->moisLettre }}", {{ $data->total }} ], 
             @endforeach
         ]);
 

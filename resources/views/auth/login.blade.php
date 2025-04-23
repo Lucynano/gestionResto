@@ -45,7 +45,3 @@
         </div>
     </form>
 </x-guest-layout>
-@extends('layouts.app')
-
-@section('content')
-

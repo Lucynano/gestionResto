@@ -1,17 +1,17 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
-use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Controllers\TableController;
-
-Route::get('/dashboard', [TableController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
     Methode du TableController: index, show, create, store, edit, update, destroy, ...
 */
 
-// use App\Http\Controllers\TableController;
+use App\Http\Controllers\TableController;
 
 Route::resource('tables', TableController::class); // routes pour un CRUD complet de tables
 
@@ -63,23 +63,4 @@ Route::get('/requetes/histogramme', [RequeteController::class, 'histogramme'])->
 
 Route::get('/requetes/listePlat', [RequeteController::class, 'listePlat'])->name('requetes.listePlat');
 
-Route::get('/telecharger-pdf', function () {
-    $additions = session('additions', []);
-    $totalGeneral = session('totalGeneral', 0);
-    $validated = session('validated', []);
-
-    // Générer le contenu HTML avec les données
-    $html = View::make('requetes.addition-pdf', compact('additions', 'totalGeneral', 'validated'))->render();
-
-    // Créer le PDF
-    $pdf = SnappyPdf::loadHTML($html);
-
-    // Télécharger le PDF
-    return $pdf->download('addition.pdf');
-})->name('telecharger.pdf');
-
-
-
-
-
-
+Route::get('/telecharger-pdf', [RequeteController::class, 'telechargerPDF'])->name('telecharger.pdf');

@@ -133,15 +133,15 @@ class RequeteController extends Controller
 
         $query = Commande::join('menus', 'commandes.menu_id', '=', 'menus.id')
         ->select(
-            DB::raw('DATE_FORMAT(commandes.datecom, "%M") as mois'),
+            DB::raw('DATE_FORMAT(commandes.datecom, "%M") as moisLettre'),
+            DB::raw('DATE_FORMAT(commandes.datecom, "%Y-%m") as moisChiffre'),
             DB::raw('SUM(menus.pu * commandes.unite) as total')
         )
         ->where('commandes.datecom', '>=', $sixMonthsAgo)
-        ->groupBy('mois')
-        ->orderBy('mois')
-        ->orderByRaw('mois ASC');
+        ->groupBy('moisChiffre', 'moisLettre')
+        ->orderByRaw('moisChiffre DESC');
 
-        $datas = $query->get(); // select date_format(datecom, '%Y-%m') as mois, sum(pu*unite) as total from commandes join menus on menus.id=commandes.menu_id where datecom>=date_sub(curdate(),interval 6 month) group by mois order by mois;
+        $datas = $query->get(); // select date_format(datecom, '%Y-%m') as moisChiffre, date_format(datecom, '%M') as moisLettre, sum(pu*unite) as total from commandes join menus on menus.id=commandes.menu_id where datecom>=date_sub(curdate(),interval 6 month) group by moisChiffre, moisLettre order by moisChiffre;
 
 		// La vue "histogramme"
 		return view("requetes.histogramme", compact('datas')); 
