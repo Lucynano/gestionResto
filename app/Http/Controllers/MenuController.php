@@ -17,7 +17,7 @@ class MenuController extends Controller {
             $query->where('nomplat', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $menus = $query->get(); 
+        $menus = $query->simplePaginate(5)->withQueryString(); 
         return view('menus.index', compact('menus')); // elle envoie ces donnees vers la vue 'menus.index' en utilisant compact() pour rendre $menus dispo dans la vue
     }
 

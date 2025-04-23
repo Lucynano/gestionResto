@@ -3,10 +3,23 @@
 use Illuminate\Support\Facades\Route;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return view('layouts.main');
+    return view('welcome');
 });
+
+use App\Http\Controllers\TableController;
+
+Route::get('/dashboard', [TableController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 
 // ROUTE 
 /*  URL: 'tables', 'menus'
@@ -14,7 +27,7 @@ Route::get('/', function () {
     Methode du TableController: index, show, create, store, edit, update, destroy, ...
 */
 
-use App\Http\Controllers\TableController;
+// use App\Http\Controllers\TableController;
 
 Route::resource('tables', TableController::class); // routes pour un CRUD complet de tables
 
@@ -42,15 +55,13 @@ Route::get('/requetes/formAddition', [RequeteController::class, 'formAddition'])
 
 Route::get('/requetes/addition', [RequeteController::class, 'addition'])->name('requetes.addition');
 
-Route::get('/payer/{table_id?}', [RequeteController::class, 'payer'])->name('requetes.payer');
+Route::post('/payer/{table_id?}', [RequeteController::class, 'payer'])->name('requetes.payer');
 
 Route::get('/requetes/recetteTotal', [RequeteController::class, 'recetteTotal'])->name('requetes.recetteTotal');
 
 Route::get('/requetes/histogramme', [RequeteController::class, 'histogramme'])->name('requetes.histogramme');
 
 Route::get('/requetes/listePlat', [RequeteController::class, 'listePlat'])->name('requetes.listePlat');
-
-// Route::get('/telecharger-pdf', [RequeteController::class, 'telechargerPDF'])->name('telecharger.pdf');
 
 Route::get('/telecharger-pdf', function () {
     $additions = session('additions', []);
@@ -66,7 +77,6 @@ Route::get('/telecharger-pdf', function () {
     // Télécharger le PDF
     return $pdf->download('addition.pdf');
 })->name('telecharger.pdf');
-
 
 
 

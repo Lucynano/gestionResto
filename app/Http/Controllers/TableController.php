@@ -10,7 +10,7 @@ class TableController extends Controller {
     // afficher toutes les Tables 
 
     public function index(Request $request) {
-        $tables = Table::all(); 
+        $tables = Table::simplePaginate(5); 
         return view('tables.index', compact('tables')); // elle envoie ces donnees vers la vue 'tables.index' en utilisant compact() pour rendre $tables dispo dans la vue
     }
 

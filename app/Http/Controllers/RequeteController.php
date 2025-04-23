@@ -133,7 +133,7 @@ class RequeteController extends Controller
 
         $query = Commande::join('menus', 'commandes.menu_id', '=', 'menus.id')
         ->select(
-            DB::raw('DATE_FORMAT(commandes.datecom, "%Y-%m") as mois'),
+            DB::raw('DATE_FORMAT(commandes.datecom, "%M") as mois'),
             DB::raw('SUM(menus.pu * commandes.unite) as total')
         )
         ->where('commandes.datecom', '>=', $sixMonthsAgo)

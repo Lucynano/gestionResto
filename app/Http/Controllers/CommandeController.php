@@ -20,7 +20,7 @@ class CommandeController extends Controller
             $query->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $commandes = $query->get(); 
+        $commandes = $query->simplePaginate(5)->withQueryString(); 
         return view('commandes.index', compact('commandes')); // elle envoie ces donnees vers la vue 'commandes.index' en utilisant compact() pour rendre $commandes dispo dans la vue
     }
 

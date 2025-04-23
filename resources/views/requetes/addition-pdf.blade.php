@@ -25,6 +25,9 @@
         th {
             background-color: #f2f2f2;
         }
+        h1, h5 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -35,6 +38,8 @@
     @else
         <p><strong>Nom du client:</strong> {{ $validated['nomcli'] }}</p>
         <p><strong>Table:</strong> {{ $validated['table_id'] }}</p>
+
+        <h5>Votre facture en detail</h5>
 
         <table>
             <thead>

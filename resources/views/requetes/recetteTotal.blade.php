@@ -5,10 +5,7 @@
 @section('title', 'Recette total') {{-- titre personnalise --}}
 
 @section('content') {{-- contenu specifique --}}
-    <div class="mb-3">
-        <label for="total" class="form-label"><b>Recette Total</b></label>
-        <input type="text" id="total" name="total" class="form-control" value="{{ $totalGeneral }} Ar" disabled>
-    </div>
+    <h1 class="text-center mb-4">Recette Total</h1>
 
     @if ($recettes->isEmpty())
         <p>Aucun recette disponible</p> {{-- s il n y a pas de recette --}}

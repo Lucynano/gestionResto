@@ -5,7 +5,7 @@
 @section('title', 'Liste des clients') {{-- titre personnalise --}}
 
 @section('content') {{-- contenu specifique --}}
-     <h1 class="mb-4">Liste des clients passes pour une date donnee ou entre deux dates</h1>
+     <h1 class="text-center mb-4">Liste des clients passes pour une date donnee ou entre deux dates</h1>
      
      <!-- Affichage des erreurs -->
      @if (session('error'))

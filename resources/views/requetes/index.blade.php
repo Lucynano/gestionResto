@@ -10,22 +10,19 @@
 
 @section('content') {{-- contenu specifique --}}
     <link rel="stylesheet" href="{{ asset('css/popupForm.css') }}"> {{-- lien css pour popupForm --}}
-    <h1 class="mb-4">Requetes specifiques</h1>
-    <div class="mb-3">
-        <button onclick="openForm('formListeCli')" class="open-button">Listes des clients passes pour une date donnee ou entre deux dates</button> 
-    </div>
-    <div class="mb-3">
-        <button onclick="openForm('formAddition')" class="open-button">Edition d'une addition</button>
-    </div>
-    <div id="formContainer"></div>
-    <div class="mb-3">
-        <a href="{{ route('requetes.recetteTotal') }}" class="btn btn-primary mb-3">Recette total accumule par le restaurant</a>
-    </div>
-    <div class="mb-3">
-        <a href="{{ route('requetes.histogramme') }}" class="btn btn-primary mb-3">Histogramme des recettes pendant les 6 derniers mois</a> 
-    </div>
-    <div class="mb-3">
-        <a href="{{ route('requetes.listePlat') }}" class="btn btn-primary mb-3">Liste des 10 plats les plus vendu</a> {{-- btn pour   --}}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Requetes specifiques</h1>
+        <div class="container d-flex flex-column align-items-center gap-3 mt-5">
+            <button onclick="openForm('formListeCli')" class="btn btn-success mb-3">Listes des clients passes pour une date donnee ou entre deux dates</button> 
+        
+            <button onclick="openForm('formAddition')" class="btn btn-success mb-3">Edition d'une addition</button>
+        
+            <a href="{{ route('requetes.recetteTotal') }}" class="btn btn-primary mb-3">Recette total accumule par le restaurant</a>
+        
+            <a href="{{ route('requetes.histogramme') }}" class="btn btn-primary mb-3">Histogramme des recettes pendant les 6 derniers mois</a> 
+        
+            <a href="{{ route('requetes.listePlat') }}" class="btn btn-primary mb-3">Liste des 10 plats les plus vendu</a> {{-- btn pour   --}}
+        </div> 
     </div>
 
     <!-- Script JS pour validation et gestion des popups -->

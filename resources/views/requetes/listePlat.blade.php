@@ -5,7 +5,7 @@
 @section('title', 'Liste des 10 plats les plus vendus') {{-- titre personnalise --}}
 
 @section('content') {{-- contenu specifique --}}
-    <h1>Liste des 10 plats les plus vendus</h1>
+    <h1 class="text-center mb-4">Liste des 10 plats les plus vendus</h1>
 
     @if ($plats->isEmpty())
         <p>Aucun plat disponible</p> {{-- s il n y a pas de plat --}}

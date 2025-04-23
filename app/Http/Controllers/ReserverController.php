@@ -19,7 +19,7 @@ class ReserverController extends Controller
             $query->where('nomcli', 'like', '%' . $request->search . '%'); // recherche en utilisant like avec '%' . $var . '%'
         }
 
-        $reservers = $query->get(); 
+        $reservers = $query->simplePaginate(5)->withQueryString(); 
         return view('reservers.index', compact('reservers')); // elle envoie ces donnees vers la vue 'reservers.index' en utilisant compact() pour rendre $reservers dispo dans la vue
     }
 
